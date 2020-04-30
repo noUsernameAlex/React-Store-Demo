@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {FormControl, FormGroup, ControlLabel, HelpBlock, Checkbox, Radio, Button, Form, Card} from 'react-bootstrap';
 
 
-import Login from "./login.component";
-import SignUp from "./signup.component";
 import LoginStyle from './loginStyle.css';
 import axios from 'axios';
 
@@ -18,10 +16,7 @@ export default class LoginPage extends Component {
     };
   }
   componentDidMount() {
-    // axios.get(`localhost:5000/user`)
-    //   .then(res => {
-    //     this.setState({name : res.data });
-    //   })
+
   }
 
   handleEmailChange = (event) => {
@@ -51,7 +46,7 @@ export default class LoginPage extends Component {
       <div className='login-box'>
 
         <Form className='login-form' onSubmit={this.handleSubmit}>
-          <p className='row login-title'>Log in</p>
+          <p className='row login-title'>Sign up</p>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" onChange={this.handleEmailChange}/>
@@ -65,9 +60,6 @@ export default class LoginPage extends Component {
             <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
           </Form.Group>
           <Form.Group controlId="formBasicSignUpOption">
-            <Form.Text className="text-muted">
-              haven't registered? <Link to='SignUpPage'>Sign up here</Link>
-            </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
