@@ -8,6 +8,8 @@ import Default from './components/Default';
 import Cart from './components/Cart';
 import ProductList from './components/ProductList';
 import Model from './components/Model';
+import Login from './components/login/loginPage';
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route exact path="/" component={ProductList} />
         <Route exact path="/details" component={Details} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
         <Route component={Default} />
       </Switch>
       <Model />
