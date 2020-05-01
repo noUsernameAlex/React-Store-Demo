@@ -41,9 +41,14 @@ export default class LoginPage extends Component {
       email : this.state.email,
       password : this.state.password,
     };
-    axios.post('http://localhost:5000/user/add', person)
-    .then(res => alert("congrats! user created!"))
-    .catch(error => alert("this username is not available"));
+    axios.post('http://localhost:5000/user/', person)
+    .then(res => {
+        if (res) {
+            sessionStorage.setItem('isLoggedIn', true);
+        }
+        alert(`logged in! ${sessionStorage.getItem('isLoggedIn')}`);
+    })
+    .catch(error => alert("username or password incorrect!"));
   }
 
   render() {
@@ -66,7 +71,7 @@ export default class LoginPage extends Component {
           </Form.Group>
           <Form.Group controlId="formBasicSignUpOption">
             <Form.Text className="text-muted">
-              haven't registered? <Link to='SignUpPage'>Sign up here</Link>
+              haven't registered? <Link to='signUp'>Sign up here</Link>
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">

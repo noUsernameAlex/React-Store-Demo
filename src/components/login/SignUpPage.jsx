@@ -60,6 +60,9 @@ export default class LoginPage extends Component {
             <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
           </Form.Group>
           <Form.Group controlId="formBasicSignUpOption">
+            <Form.Text className="text-muted">
+              have registered? <Link to='login'>login here</Link>
+            </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit

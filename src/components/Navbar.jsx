@@ -3,43 +3,25 @@ import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 import {ButtonContainer} from './Button';
 import styled from 'styled-components';
+import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 
-export default class Navbar extends Component {
+export default class MyNavbar extends Component {
   render() {
     return (
-      <NavWrapper className='navbar navbar-expand-sm navbar-dark px-sm-5'>
-        {/*
-          https://www.iconfinder.com/icons/1243689/call_phone_icon
-          Creative Commons (Attribution 3.0 Unported);
-        https://www.iconfinder.com/Makoto_msk */}
-        <Link to='/'>
-          <img src={logo} alt="store" className="navbar-brand" />
-        </Link>
-        <ul className='navbar-nav align-items-center'>
-          <li className='nav-item ml-5'>
-            <Link to='/' className='nav-link'>
-              Product
-            </Link>
-          </li>
-        </ul>
-        <Link to='/cart' className='ml-auto'>
-          <ButtonContainer>
-            <span className="mr-2">
-              <i className='fas fa-cart-plus' />
-            </span>
-            my cart
-          </ButtonContainer>
-        </Link>
-      </NavWrapper>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/">store</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+          {/* mr-auto can push other elements to the right*/}
+            <Nav.Link href="/">product</Nav.Link>
+            <Nav.Link href="sample">sample</Nav.Link>
+
+          </Nav>
+          <Nav.Link href="cart"><button className='cart-icon'>my cart</button></Nav.Link>
+          <Nav.Link href="login">login</Nav.Link>
+        </Navbar.Collapse>
+        </Navbar>
     );
   }
 }
-
-const NavWrapper = styled.nav`
-  background: var(--mainBlue);
-  .nav-link {
-    color:var(--mainWhite)!important;
-    font-size:1.3rem;
-    text-tranform: capitalize ;
-  }
-`;
