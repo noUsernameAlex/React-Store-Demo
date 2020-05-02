@@ -14,8 +14,6 @@ class ProductProvider extends Component {
     cartSubtotal: 0,
     cartTax : 0,
     cartTotal : 0,
-    isLoggedIn: sessionStorage.getItem('isLoggedIn'),
-    email: sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('email') : null,
   };
 
 
@@ -166,12 +164,10 @@ class ProductProvider extends Component {
   }
 
   handleLogout = () => {
+
     sessionStorage.setItem('isLoggedIn', false);
     sessionStorage.setItem('email', null);
-    this.setState({
-      isLoggedIn : false,
-      email : null,
-    });
+    sessionStorage.setItem('isAdmin', false);
     window.location = '/';
   }
 
@@ -183,15 +179,16 @@ class ProductProvider extends Component {
     };
     axios.post('http://localhost:5000/user/', person)
     .then(res => {
-        alert(res);
+
         if (res) {
+            alert(res.data.isAdmin);
             sessionStorage.setItem('isLoggedIn', true);
             sessionStorage.setItem('email', email);
-            this.setState({
-              isLoggedIn : true,
-              email : email,
-            });
-            alert('succ');
+
+            if (res.data.isAdmin) {
+              sessionStorage.setItem('isAdmin', true);  
+            }
+
             window.location = '/';
         }
     })

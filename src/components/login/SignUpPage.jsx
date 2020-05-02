@@ -13,6 +13,7 @@ export default class LoginPage extends Component {
       email : null,
       password : null,
       name : null,
+      isAdminCheckbox : false,
     };
   }
   componentDidMount() {
@@ -29,6 +30,13 @@ export default class LoginPage extends Component {
       password : event.target.value,
     });
   }
+
+  handleAdminCheckbox = (event) => {
+    this.setState({
+      isAdminCheckbox : true,
+    });
+  }
+
   handleSubmit = (event) => {
     //alert(`email is ${this.state.email} and password is ${this.state.password}`);
     event.preventDefault();
@@ -36,8 +44,12 @@ export default class LoginPage extends Component {
       email : this.state.email,
       password : this.state.password,
     };
-    axios.post('http://localhost:5000/user/add', person)
-    .then(res => alert("congrats! user created!"))
+    let createUserUrl = 'http://localhost:5000/user/add';
+    if (this.state.isAdminCheckbox) {
+      createUserUrl = 'http://localhost:5000/user/addAdmin';
+    }
+    axios.post(createUserUrl, person)
+    .then(res => alert(`congrats! ${this.state.isAdminCheckbox ? 'admin' : 'user'} created!`))
     .catch(error => alert("this username is not available"));
   }
 
@@ -63,6 +75,9 @@ export default class LoginPage extends Component {
             <Form.Text className="text-muted">
               have registered? <Link to='login'>login here</Link>
             </Form.Text>
+          </Form.Group>
+          <Form.Group controlId="formBasicCheckbox">
+            <Form.Check type='checkbox' label='is admin' onChange={this.handleAdminCheckbox}/>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit

@@ -12,7 +12,7 @@ export default class MyNavbar extends Component {
     return (
       <ProductConsumer>
         {(value) => {
-          const {handleLogout, isLoggedIn, email} = value;
+          const {handleLogout, email} = value;
           return (
             <Navbar bg="light" expand="lg">
               <Navbar.Brand href="/">store</Navbar.Brand>
@@ -26,8 +26,11 @@ export default class MyNavbar extends Component {
                 </Nav>
                 <Nav.Link href="cart"><button className='cart-icon'>my cart</button></Nav.Link>
                 <Nav.Item>
-                  {(isLoggedIn == true || isLoggedIn == "true") ?
-                    <NavDropdown title={email} id="nav-dropdown">
+                  {sessionStorage.getItem('isAdmin') =="true" ? 'Hi admin user' : ''}
+                </Nav.Item>
+                <Nav.Item>
+                  {sessionStorage.getItem('isLoggedIn') == "true" ?
+                    <NavDropdown title={sessionStorage.getItem('email')} id="nav-dropdown">
                       <NavDropdown.Item href='/cart'>cart</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={value.handleLogout}>log out</NavDropdown.Item>
