@@ -65,7 +65,7 @@ const ModelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 10px;
   #model {
     background: var(--mainWhite);
     padding: 30px;

@@ -1,0 +1,8 @@
+TODO:
+1. move the data into database
+
+1.5 admin can add more product into the database through the page
+
+2. move the cart into database
+
+3. Create order history

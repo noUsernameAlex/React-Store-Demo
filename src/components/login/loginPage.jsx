@@ -1,8 +1,6 @@
 import React ,{ Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {FormControl, FormGroup, ControlLabel, HelpBlock, Checkbox, Radio, Button, Form, Card} from 'react-bootstrap';
-
-
 import Login from "./login.component";
 import SignUp from "./signup.component";
 import LoginStyle from './loginStyle.css';
@@ -19,17 +17,32 @@ export default class LoginPage extends Component {
       email: event.target.value,
     });
   }
+
+  handleLoginSubmit = (email, password) => {
+    let person = {
+      email : email,
+      password : password,
+    };
+    axios.post('http://localhost:5000/user/', person)
+    .then(res => {
+        if (res) {
+            sessionStorage.setItem('isLoggedIn', true);
+            sessionStorage.setItem('email', email);
+            window.location = '/';
+        }
+    })
+    .catch(error => alert("username or password incorrect!"));
+  }
+
   handlePasswordChange = (event) => {
     this.setState({
       password : event.target.value,
     });
   }
 
-
-  aaa = (e) => {
+  preventFromReloading = (e) => {
     e.preventDefault();
   }
-
 
   render() {
     return (
@@ -37,8 +50,7 @@ export default class LoginPage extends Component {
         {value => {
           return (
             <div className='login-box'>
-
-              <Form className='login-form' onSubmit={this.aaa}>
+              <Form className='login-form' onSubmit={this.preventFromReloading}>
                 <p className='row login-title'>Log in</p>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
@@ -47,7 +59,6 @@ export default class LoginPage extends Component {
                     hare your email with anyone else.
                   </Form.Text>
                 </Form.Group>
-
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>Password</Form.Label>
                   <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
@@ -58,7 +69,7 @@ export default class LoginPage extends Component {
                   </Form.Text>
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={() => {
-                  value.handleLoginSubmit(this.state.email, this.state.password);
+                  this.handleLoginSubmit(this.state.email, this.state.password);
                 }}>
                   Submit
                 </Button>
@@ -66,7 +77,6 @@ export default class LoginPage extends Component {
             </div>
           )
         }}
-
       </ProductConsumer>
     );
   }

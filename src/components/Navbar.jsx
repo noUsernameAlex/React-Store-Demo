@@ -8,6 +8,12 @@ import {ProductConsumer} from '../context';
 
 export default class MyNavbar extends Component {
 
+  handleLogout = () => {
+    sessionStorage.setItem('isLoggedIn', false);
+    sessionStorage.setItem('email', null);
+    window.location = '/';
+  }
+
   render() {
     return (
       <ProductConsumer>
@@ -26,11 +32,11 @@ export default class MyNavbar extends Component {
                 </Nav>
                 <Nav.Link href="cart"><button className='cart-icon'>my cart</button></Nav.Link>
                 <Nav.Item>
-                  {(isLoggedIn == true || isLoggedIn == "true") ?
-                    <NavDropdown title={email} id="nav-dropdown">
+                  {(sessionStorage.getItem('isLoggedIn') == true || sessionStorage.getItem('isLoggedIn') === "true") ?
+                    <NavDropdown title={sessionStorage.getItem('email')} id="nav-dropdown">
                       <NavDropdown.Item href='/cart'>cart</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={value.handleLogout}>log out</NavDropdown.Item>
+                      <NavDropdown.Item onClick={this.handleLogout}>log out</NavDropdown.Item>
                     </NavDropdown> :
                     <Nav.Link href="login">login</Nav.Link>}
 
@@ -38,9 +44,7 @@ export default class MyNavbar extends Component {
               </Navbar.Collapse>
             </Navbar>
           )
-
         }}
-
       </ProductConsumer>
     );
   }

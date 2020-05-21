@@ -14,18 +14,9 @@ class ProductProvider extends Component {
     cartSubtotal: 0,
     cartTax : 0,
     cartTotal : 0,
-    isLoggedIn: sessionStorage.getItem('isLoggedIn'),
-    email: sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('email') : null,
   };
 
-
   componentDidMount () {
-    // this.setState({
-    //   isLoggedIn : sessionStorage.getItem('isLoggedIn'),
-    //   email: sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('email') : null,
-    // });
-    // console.log('session logged in : ' + sessionStorage.getItem('isLoggedIn'));
-    // console.log('state logged in : ' + this.state.isLoggedIn);
     this.setProducts();
   }
 
@@ -164,43 +155,6 @@ class ProductProvider extends Component {
       cartTotal : total
     });
   }
-
-  handleLogout = () => {
-    sessionStorage.setItem('isLoggedIn', false);
-    sessionStorage.setItem('email', null);
-    this.setState({
-      isLoggedIn : false,
-      email : null,
-    });
-    window.location = '/';
-  }
-
-  handleLoginSubmit = (email, password) => {
-    //alert(`email is ${this.state.email} and password is ${this.state.password}`);
-    let person = {
-      email : email,
-      password : password,
-    };
-    axios.post('http://localhost:5000/user/', person)
-    .then(res => {
-        alert(res);
-        if (res) {
-            sessionStorage.setItem('isLoggedIn', true);
-            sessionStorage.setItem('email', email);
-            this.setState({
-              isLoggedIn : true,
-              email : email,
-            });
-            alert('succ');
-            window.location = '/';
-        }
-    })
-    .catch(error => alert("username or password incorrect!"));
-  }
-
-
-
-
 
   render() {
     return (
