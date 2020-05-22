@@ -18,7 +18,7 @@ export default class MyNavbar extends Component {
     return (
       <ProductConsumer>
         {(value) => {
-          const {handleLogout, isLoggedIn, email} = value;
+          const {handleLogout, email} = value;
           return (
             <Navbar bg="light" expand="lg">
               <Navbar.Brand href="/">store</Navbar.Brand>
